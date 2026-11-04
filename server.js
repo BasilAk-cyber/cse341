@@ -1,11 +1,20 @@
 import app from './app.js';
+import { connectToDb } from './src/db/connect.js';
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3001;
 
-if (!PORT) {
-  throw new Error('PORT is missing. Check that your .env file exists and is being loaded.');
-}
+const startServer = async () => {
+  try {
+   await connectToDb();
 
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-});
+    app.listen(PORT, () => {
+      console.log(`Server listening on port ${PORT}`);
+    });
+
+  } catch (error) {
+    console.error('Database connection failed:', error.message);
+    process.exit(1);
+  }
+};
+
+await startServer();
