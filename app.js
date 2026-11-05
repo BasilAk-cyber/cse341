@@ -1,6 +1,6 @@
 import express from 'express';
 import { getDb } from './src/db/connect.js';
-import { getBooksHandler } from './src/controllers/book.js';
+import { getBooksHandler,getBookByIdHandler  } from './src/controllers/book.js';
 
 const app = express();
 
@@ -32,6 +32,7 @@ app.get('/trails', async (req, res) => {
 });
 
 app.get('/books', getBooksHandler);
+app.get('/books/:id', getBookByIdHandler);
 
 app.use((req, res) => {
   console.log('Unmatched request:', req.method, req.url);
