@@ -1,5 +1,6 @@
 import express from 'express';
 import { getDb } from './src/db/connect.js';
+import { getBooksHandler } from './src/controllers/book.js';
 
 const app = express();
 
@@ -29,6 +30,8 @@ app.get('/trails', async (req, res) => {
     });
   }
 });
+
+app.get('/books', getBooksHandler);
 
 app.use((req, res) => {
   console.log('Unmatched request:', req.method, req.url);
